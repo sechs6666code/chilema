@@ -3,9 +3,16 @@ import { foods } from '../data/foods';
 import { filterFoods, getCuisineCandidates, getFlavorCandidates } from './recommendation';
 
 describe('food database', () => {
-  it('contains at least 100 concrete dishes', () => {
-    expect(foods.length).toBeGreaterThanOrEqual(100);
+  it('contains at least 300 concrete dishes', () => {
+    expect(foods.length).toBeGreaterThanOrEqual(300);
     expect(new Set(foods.map((food) => food.name)).size).toBe(foods.length);
+  });
+
+  it('covers nationwide and popular international cuisines', () => {
+    const cuisines = new Set(foods.map((food) => food.cuisine));
+    ['鲁菜', '湖北菜', '山西菜', '新疆菜', '藏餐', '印度料理', '墨西哥菜', '中东料理', '法式料理'].forEach((cuisine) => {
+      expect(cuisines.has(cuisine)).toBe(true);
+    });
   });
 
   it('has all required fields', () => {
@@ -15,6 +22,17 @@ describe('food database', () => {
       expect(food.flavor.length).toBeGreaterThan(0);
     });
   });
+
+  it('uses a broad food-photo pool instead of one repeated image per cuisine', () => {
+    expect(new Set(foods.map((food) => food.image)).size).toBeGreaterThanOrEqual(55);
+    const cuisinePhotoCounts = new Map<string, Set<string>>();
+    foods.forEach((food) => {
+      const photos = cuisinePhotoCounts.get(food.cuisine) ?? new Set<string>();
+      photos.add(food.image);
+      cuisinePhotoCounts.set(food.cuisine, photos);
+    });
+    expect([...cuisinePhotoCounts.values()].every((photos) => photos.size > 1)).toBe(true);
+  });
 });
 
 describe('recommendation constraints', () => {
@@ -22,6 +40,12 @@ describe('recommendation constraints', () => {
     const results = filterFoods({ spicyPreference: 'none', selectedFlavor: '鲜香' });
     expect(results.length).toBeGreaterThan(0);
     expect(results.every((food) => food.spicyLevel === 0)).toBe(true);
+  });
+
+  it('keeps both spicy and non-spicy candidates when either is selected', () => {
+    const results = filterFoods({ spicyPreference: 'either' });
+    expect(results.some((food) => food.spicyLevel === 0)).toBe(true);
+    expect(results.some((food) => food.spicyLevel > 0)).toBe(true);
   });
 
   it('keeps the selected flavor and cuisine through later stages', () => {
