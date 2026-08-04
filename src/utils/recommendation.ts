@@ -9,7 +9,7 @@ type FilterOptions = {
 };
 
 function matchesSpicy(food: Food, preference?: string) {
-  if (!preference || preference === 'any') return true;
+  if (!preference || preference === 'any' || preference === 'either') return true;
   if (preference === 'none') return food.spicyLevel === 0;
   if (preference === 'mild') return food.spicyLevel <= 1;
   if (preference === 'medium') return food.spicyLevel >= 1 && food.spicyLevel <= 3;
