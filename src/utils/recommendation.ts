@@ -5,7 +5,6 @@ type FilterOptions = {
   ignoreFlavor?: boolean;
   ignoreCuisine?: boolean;
   ignoreDish?: boolean;
-  relaxSoft?: boolean;
 };
 
 function matchesSpicy(food: Food, preference?: string) {
@@ -25,7 +24,7 @@ function matchesTemperature(food: Food, preference?: string) {
 function matchesHunger(food: Food, preference?: string) {
   if (!preference || preference === 'any') return true;
   if (preference === 'light') return food.fullnessLevel <= 3;
-  if (preference === 'normal') return food.fullnessLevel >= 2 && food.fullnessLevel <= 4;
+  if (preference === 'normal') return food.fullnessLevel >= 2;
   if (preference === 'good') return food.fullnessLevel >= 3;
   if (preference === 'stuffed') return food.fullnessLevel >= 4;
   return true;
@@ -39,20 +38,17 @@ function matchesIntensity(food: Food, preference?: string) {
 }
 
 export function filterFoods(state: DecisionState, options: FilterOptions = {}): Food[] {
-  const strict = foods.filter((food) => {
+  return foods.filter((food) => {
     if (!matchesSpicy(food, state.spicyPreference)) return false;
     if (!matchesTemperature(food, state.temperature)) return false;
     if (!options.ignoreFlavor && state.selectedFlavor && !food.flavor.includes(state.selectedFlavor)) return false;
     if (!options.ignoreCuisine && state.selectedCuisine && food.cuisine !== state.selectedCuisine) return false;
     if (!options.ignoreDish && state.selectedDish && food.id !== state.selectedDish) return false;
-    if (!options.relaxSoft && state.foodForm && state.foodForm !== 'any' && !food.category.includes(state.foodForm)) return false;
-    if (!options.relaxSoft && !matchesHunger(food, state.hungerLevel)) return false;
-    if (!options.relaxSoft && !matchesIntensity(food, state.flavorIntensity)) return false;
+    if (state.foodForm && state.foodForm !== 'any' && !food.category.includes(state.foodForm)) return false;
+    if (!matchesHunger(food, state.hungerLevel)) return false;
+    if (!matchesIntensity(food, state.flavorIntensity)) return false;
     return true;
   });
-
-  if (strict.length || options.relaxSoft) return strict;
-  return filterFoods(state, { ...options, relaxSoft: true });
 }
 
 export function getFlavorCandidates(state: DecisionState) {
