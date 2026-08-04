@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowLeft, RotateCw, Sparkles } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import { getNextWheelRotation } from '../utils/wheel';
 
 type Props = {
   title: string;
@@ -34,7 +35,7 @@ export function Wheel({ title, eyebrow, options, onAccept, onCancel }: Props) {
     if (spinning || options.length === 0) return;
     const index = randomIndex(options.length);
     const selected = options[index];
-    const next = rotation + 360 * (5 + randomIndex(3)) + (360 - ((index + 0.5) * segment) % 360);
+    const next = getNextWheelRotation(rotation, index, options.length, 5 + randomIndex(3));
     setResult(undefined);
     setPendingResult(selected);
     setSpinning(true);
