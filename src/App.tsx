@@ -49,6 +49,18 @@ function App() {
     navigate('welcome', true);
   };
 
+  const currentQuestion = questions[questionIndex];
+  const questionBaseState = useMemo(() => {
+    const next: DecisionState = {};
+    questions.slice(0, questionIndex).forEach(({ key }) => Object.assign(next, { [key]: decision[key] }));
+    return next;
+  }, [decision, questionIndex]);
+  const viableQuestionOptions = useMemo(() => currentQuestion.options.filter((option) => {
+    if (option.value === 'any') return true;
+    const candidateState = { ...questionBaseState, [currentQuestion.key]: option.value };
+    return filterFoods(candidateState, { ignoreFlavor: true, ignoreCuisine: true, ignoreDish: true }).length > 0;
+  }), [currentQuestion, questionBaseState]);
+
   const updateDecision = (patch: Partial<DecisionState>, clear: (keyof DecisionState)[] = []) => {
     setDecision((current) => {
       const next = { ...current, ...patch };
@@ -58,15 +70,22 @@ function App() {
   };
 
   const answerQuestion = (value: string) => {
-    const question = questions[questionIndex];
+    const question = currentQuestion;
     const apply = (resolved: string) => {
-      updateDecision({ [question.key]: resolved }, ['selectedFlavor', 'selectedCuisine', 'selectedDish']);
+      setDecision((current) => {
+        const next = { ...current, [question.key]: resolved };
+        questions.slice(questionIndex + 1).forEach(({ key }) => delete next[key]);
+        delete next.selectedFlavor;
+        delete next.selectedCuisine;
+        delete next.selectedDish;
+        return next;
+      });
       if (questionIndex === questions.length - 1) navigate('flavor');
       else setQuestionIndex((index) => index + 1);
     };
     if (value === 'any') {
-      setWheel({ title: question.title, eyebrow: '把这一票交给命运', options: question.options.filter((option) => option.value !== 'any').map((option) => option.label), onAccept: (label) => {
-        const resolved = question.options.find((option) => option.label === label)?.value ?? 'any';
+      setWheel({ title: question.title, eyebrow: '把这一票交给命运', options: viableQuestionOptions.filter((option) => option.value !== 'any').map((option) => option.label), onAccept: (label) => {
+        const resolved = viableQuestionOptions.find((option) => option.label === label)?.value ?? 'any';
         setWheel(undefined);
         apply(resolved);
       }});
@@ -162,7 +181,7 @@ function App() {
       <main>
         <AnimatePresence mode="wait">
           {view === 'welcome' && <Welcome key="welcome" dark={dark} setDark={setDark} onStart={() => { setQuestionIndex(0); navigate('question'); }} onOpen={navigate} />}
-          {view === 'question' && <QuestionView key={`q-${questionIndex}`} index={questionIndex} value={decision[questions[questionIndex].key]} onAnswer={answerQuestion} />}
+          {view === 'question' && <QuestionView key={`q-${questionIndex}`} index={questionIndex} value={decision[questions[questionIndex].key]} options={viableQuestionOptions} onAnswer={answerQuestion} />}
           {view === 'flavor' && <ChoiceView key="flavor" eyebrow="第 2 阶段 · 命运口味" title="今晚想要哪种味道？" hint={`基础筛选后，还有 ${filterFoods(decision, { ignoreFlavor: true, ignoreCuisine: true, ignoreDish: true }).length} 道菜在候选区。`} options={flavorCandidates} onSelect={selectFlavor} onRandom={() => openWheel('flavor')} />}
           {view === 'cuisine' && <ChoiceView key="cuisine" eyebrow={`已锁定 · ${decision.selectedFlavor}`} title="接下来，选一个菜系" hint="这里只会出现与前面条件相容的方向。" options={cuisineCandidates} onSelect={selectCuisine} onRandom={() => openWheel('cuisine')} />}
           {view === 'dish' && <DishView key="dish" foods={dishCandidates} decision={decision} onSelect={selectDish} onRandom={() => openWheel('dish')} />}
@@ -202,7 +221,7 @@ function Welcome({ dark, setDark, onStart, onOpen }: { dark: boolean; setDark: R
   </Page>;
 }
 
-function QuestionView({ index, value, onAnswer }: { index: number; value?: string; onAnswer: (value: string) => void }) {
+function QuestionView({ index, value, options, onAnswer }: { index: number; value?: string; options: (typeof questions)[number]['options']; onAnswer: (value: string) => void }) {
   const question = questions[index];
   return <Page className="question-page">
     <div className="progress-block">
@@ -211,7 +230,7 @@ function QuestionView({ index, value, onAnswer }: { index: number; value?: strin
     </div>
     <div className="section-heading"><span className="eyebrow">{question.eyebrow}</span><h2>{question.title}</h2><p>{question.hint}</p></div>
     <div className="option-list">
-      {question.options.map((option, optionIndex) => <motion.button key={option.value} className={`option-card ${value === option.value ? 'selected' : ''} ${option.value === 'any' ? 'random-option' : ''}`} onClick={() => onAnswer(option.value)} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ ...transition, delay: optionIndex * .045 }}>
+      {options.map((option, optionIndex) => <motion.button key={option.value} className={`option-card ${value === option.value ? 'selected' : ''} ${option.value === 'any' ? 'random-option' : ''}`} onClick={() => onAnswer(option.value)} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ ...transition, delay: optionIndex * .045 }}>
         <span className="option-emoji">{option.emoji}</span><strong>{option.label}</strong>{option.value === 'any' && <small>让转盘替我决定</small>}<ChevronRight size={19} />
       </motion.button>)}
     </div>
