@@ -65,8 +65,8 @@ const categoryPhotoPools: Record<string, string[]> = {
 
 const seeds: Seed[] = [
   ['四川火锅', '川菜', ['hotpot', 'meal', 'dinner'], ['麻辣', '浓郁', '烟火味'], 4, 5, 'hot', 3, false, true, false],
-  ['冒菜', '川菜', ['hotpot', 'fast', 'dinner'], ['麻辣', '咸香', '汤汤水水'], 3, 4, 'hot', 2, true, true, true],
-  ['麻辣香锅', '川菜', ['hotpot', 'meal', 'dinner'], ['麻辣', '香辣', '烟火味'], 3, 4, 'hot', 2, true, true, true],
+  ['冒菜', '川菜', ['fast', 'meal', 'dinner'], ['麻辣', '咸香', '汤汤水水'], 3, 4, 'hot', 2, true, true, true],
+  ['麻辣香锅', '川菜', ['rice', 'meal', 'dinner'], ['麻辣', '香辣', '烟火味'], 3, 4, 'hot', 2, true, true, true],
   ['水煮肉片', '川菜', ['rice', 'meal', 'dinner'], ['麻辣', '香辣', '浓郁'], 4, 4, 'hot', 2, true, true, true],
   ['回锅肉', '川菜', ['rice', 'meal', 'dinner'], ['咸香', '香辣', '烟火味'], 2, 4, 'hot', 2, true, true, true],
   ['辣子鸡', '川菜', ['rice', 'meal', 'dinner'], ['香辣', '麻辣', '烟火味'], 4, 3, 'hot', 3, true, true, true],
@@ -121,7 +121,7 @@ const seeds: Seed[] = [
   ['螺蛳粉', '广西菜', ['rice-noodle', 'fast', 'late-night'], ['酸辣', '浓郁', '汤汤水水'], 3, 4, 'hot', 1, true, false, true],
   ['桂林米粉', '广西菜', ['rice-noodle', 'fast'], ['咸香', '鲜香'], 1, 3, 'hot', 1, true, false, true],
   ['老友粉', '广西菜', ['rice-noodle', 'fast'], ['酸辣', '鲜香', '汤汤水水'], 3, 3, 'hot', 1, true, false, true],
-  ['柳州鸭脚煲', '广西菜', ['hotpot', 'meal', 'late-night'], ['酸辣', '浓郁', '烟火味'], 3, 4, 'hot', 3, true, true, true],
+  ['柳州鸭脚煲', '广西菜', ['meal', 'dinner', 'late-night'], ['酸辣', '浓郁', '烟火味'], 3, 4, 'hot', 3, true, true, true],
   ['柠檬鸭', '广西菜', ['rice', 'meal'], ['酸辣', '鲜香'], 2, 4, 'hot', 3, true, true, true],
   ['南宁生榨米粉', '广西菜', ['rice-noodle', 'fast'], ['鲜香', '酸香', '汤汤水水'], 1, 3, 'hot', 1, true, false, true],
   ['广西卷筒粉', '广西菜', ['rice-noodle', 'snack'], ['清淡', '鲜香'], 0, 2, 'hot', 1, true, false, true],
@@ -136,7 +136,7 @@ const seeds: Seed[] = [
   ['小锅米线', '云南菜', ['rice-noodle', 'fast'], ['香辣', '鲜香', '汤汤水水'], 2, 3, 'hot', 1, true, false, true],
   ['云南饵丝', '云南菜', ['rice-noodle', 'fast'], ['鲜香', '清淡', '汤汤水水'], 0, 3, 'hot', 1, true, false, true],
 
-  ['酸汤鱼', '贵州菜', ['hotpot', 'meal'], ['酸辣', '鲜香', '汤汤水水'], 2, 5, 'hot', 3, false, true, false],
+  ['贵州酸汤鱼火锅', '贵州菜', ['hotpot', 'meal'], ['酸辣', '鲜香', '汤汤水水'], 2, 5, 'hot', 3, false, true, false],
   ['贵阳辣子鸡', '贵州菜', ['rice', 'meal'], ['香辣', '浓郁', '烟火味'], 4, 4, 'hot', 3, true, true, true],
   ['肠旺面', '贵州菜', ['noodle', 'fast'], ['香辣', '浓郁', '汤汤水水'], 3, 3, 'hot', 1, true, false, true],
   ['花溪牛肉粉', '贵州菜', ['rice-noodle', 'fast'], ['鲜香', '香辣', '汤汤水水'], 2, 3, 'hot', 1, true, false, true],
@@ -150,7 +150,7 @@ const seeds: Seed[] = [
   ['猪肉炖粉条', '东北菜', ['rice-noodle', 'meal'], ['咸香', '浓郁', '汤汤水水'], 0, 5, 'hot', 2, true, true, true],
   ['地三鲜', '东北菜', ['rice', 'meal'], ['咸香', '浓郁'], 0, 4, 'hot', 2, true, true, true],
   ['东北大拉皮', '东北菜', ['cold', 'snack'], ['酸甜', '清淡', '鲜香'], 0, 2, 'cold', 1, true, true, true],
-  ['铁锅炖大鹅', '东北菜', ['hotpot', 'meal'], ['浓郁', '咸香', '烟火味'], 0, 5, 'hot', 4, false, true, false],
+  ['铁锅炖大鹅', '东北菜', ['meal', 'dinner'], ['浓郁', '咸香', '烟火味'], 0, 5, 'hot', 4, false, true, false],
   ['酸菜白肉锅', '东北菜', ['hotpot', 'meal'], ['酸香', '鲜香', '汤汤水水'], 0, 4, 'hot', 3, false, true, false],
   ['东北饺子', '东北菜', ['noodle', 'meal'], ['鲜香', '咸香'], 0, 4, 'hot', 2, true, true, true],
 
@@ -227,7 +227,7 @@ const seeds: Seed[] = [
   ['德式烤香肠拼盘', '西餐', ['bbq', 'meal'], ['咸香', '烟火味'], 0, 4, 'hot', 3, true, true, true],
 
   ['生煎包', '快餐小吃', ['snack', 'fast'], ['咸香', '汤汤水水'], 0, 3, 'hot', 1, true, true, true],
-  ['麻辣烫', '快餐小吃', ['hotpot', 'fast'], ['麻辣', '香辣', '汤汤水水'], 3, 4, 'hot', 2, true, true, true],
+  ['麻辣烫', '快餐小吃', ['fast', 'snack', 'meal'], ['麻辣', '香辣', '汤汤水水'], 3, 4, 'hot', 2, true, true, true],
   ['黄焖鸡米饭', '快餐小吃', ['rice', 'fast'], ['浓郁', '咸香', '汤汤水水'], 1, 4, 'hot', 1, true, false, true],
   ['沙县蒸饺', '快餐小吃', ['snack', 'fast'], ['清淡', '鲜香'], 0, 3, 'hot', 1, true, true, true],
   ['鸡蛋灌饼', '快餐小吃', ['snack', 'fast'], ['咸香', '烟火味'], 0, 3, 'hot', 1, true, false, true],
@@ -239,7 +239,7 @@ const seeds: Seed[] = [
   ['三文鱼藜麦碗', '清淡饮食', ['rice', 'cold', 'light'], ['清淡', '鲜香'], 0, 3, 'cold', 3, true, false, true],
   ['番茄鸡蛋面', '清淡饮食', ['noodle', 'fast'], ['酸甜', '清淡', '汤汤水水'], 0, 3, 'hot', 1, true, false, true],
   ['鲜虾蔬菜粥', '清淡饮食', ['rice', 'light', 'soup'], ['清淡', '鲜香', '汤汤水水'], 0, 2, 'hot', 2, true, false, true],
-  ['菌菇豆腐汤', '清淡饮食', ['soup', 'light'], ['清淡', '鲜香', '汤汤水水'], 0, 2, 'hot', 1, true, true, true],
+  ['菌菇豆腐汤', '清淡饮食', ['soup', 'light', 'meal'], ['清淡', '鲜香', '汤汤水水'], 0, 2, 'hot', 1, true, true, true],
   ['日式荞麦冷面', '清淡饮食', ['noodle', 'cold', 'light'], ['清淡', '鲜香'], 0, 2, 'cold', 2, true, false, true],
   ['蒸鸡蛋羹配米饭', '清淡饮食', ['rice', 'light'], ['清淡', '鲜香'], 0, 3, 'hot', 1, true, false, true],
   ['蔬菜豆腐煲', '清淡饮食', ['meal', 'light'], ['清淡', '鲜香', '汤汤水水'], 0, 3, 'hot', 2, true, true, true]
@@ -307,7 +307,7 @@ const extendedSeeds: CompactSeed[] = [
 
   ['臭鳜鱼', '安徽菜', ['rice', 'meal'], ['鲜香', '浓郁'], 0],
   ['毛豆腐', '安徽菜', ['snack', 'meal'], ['咸香', '浓郁'], 1],
-  ['徽州一品锅', '安徽菜', ['hotpot', 'meal'], ['鲜香', '浓郁', '汤汤水水'], 0],
+  ['徽州一品锅', '安徽菜', ['meal', 'dinner'], ['鲜香', '浓郁', '汤汤水水'], 0],
   ['问政山笋', '安徽菜', ['rice', 'meal'], ['清淡', '鲜香'], 0],
   ['李鸿章大杂烩', '安徽菜', ['soup', 'meal'], ['浓郁', '鲜香', '汤汤水水'], 0],
   ['淮南牛肉汤', '安徽菜', ['soup', 'fast'], ['鲜香', '浓郁', '汤汤水水'], 1],
@@ -329,7 +329,7 @@ const extendedSeeds: CompactSeed[] = [
   ['梅菜扣肉', '客家菜', ['rice', 'meal'], ['咸香', '浓郁'], 0],
   ['客家酿豆腐', '客家菜', ['rice', 'meal'], ['鲜香', '咸香'], 0],
   ['盐焗鸡', '客家菜', ['rice', 'meal'], ['咸香', '鲜香'], 0],
-  ['猪肚包鸡', '客家菜', ['hotpot', 'meal'], ['鲜香', '浓郁', '汤汤水水'], 0],
+  ['客家胡椒猪肚鸡火锅', '客家菜', ['hotpot', 'meal'], ['鲜香', '浓郁', '汤汤水水'], 0],
   ['客家盆菜', '客家菜', ['meal', 'dinner'], ['浓郁', '鲜香'], 0],
   ['腌面三及第汤', '客家菜', ['noodle', 'fast'], ['咸香', '鲜香', '汤汤水水'], 0],
 
@@ -443,18 +443,18 @@ const extendedSeeds: CompactSeed[] = [
   ['加利西亚章鱼', '西班牙菜', ['meal', 'snack'], ['鲜香', '香辣'], 1],
 
   ['希腊烤肉卷', '地中海料理', ['fast', 'meal'], ['咸香', '烟火味'], 0],
-  ['希腊沙拉', '地中海料理', ['cold', 'light'], ['清淡', '鲜香'], 0],
+  ['希腊沙拉', '地中海料理', ['cold', 'light', 'meal'], ['清淡', '鲜香'], 0],
   ['意式烤蔬菜鸡肉碗', '地中海料理', ['rice', 'light'], ['清淡', '鲜香'], 0],
   ['摩洛哥塔吉锅', '地中海料理', ['meal', 'dinner'], ['浓郁', '鲜香', '汤汤水水'], 1],
   ['地中海烤鱼', '地中海料理', ['meal', 'dinner'], ['清淡', '鲜香', '烟火味'], 0],
-  ['土耳其红扁豆汤', '地中海料理', ['soup', 'light'], ['清淡', '浓郁', '汤汤水水'], 1],
+  ['土耳其红扁豆汤', '地中海料理', ['soup', 'light', 'meal'], ['清淡', '浓郁', '汤汤水水'], 1],
 
   ['俄式红菜汤', '俄罗斯菜', ['soup', 'meal'], ['酸甜', '浓郁', '汤汤水水'], 0],
   ['基辅炸鸡', '俄罗斯菜', ['meal', 'dinner'], ['咸香', '浓郁'], 0],
   ['俄式牛肉丝', '俄罗斯菜', ['rice', 'meal'], ['浓郁', '鲜香'], 0],
   ['俄式饺子', '俄罗斯菜', ['noodle', 'meal'], ['鲜香', '汤汤水水'], 0],
   ['烤肉串沙什雷克', '俄罗斯菜', ['bbq', 'meal'], ['烟火味', '咸香'], 0],
-  ['俄式土豆沙拉', '俄罗斯菜', ['cold', 'light'], ['清淡', '咸香'], 0]
+  ['俄式土豆沙拉', '俄罗斯菜', ['cold', 'light', 'meal'], ['清淡', '咸香'], 0]
 ];
 
 function expandSeed(seed: CompactSeed): Seed {
