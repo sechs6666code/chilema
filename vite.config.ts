@@ -13,6 +13,7 @@ export default defineConfig({
         name: '今晚吃什么',
         short_name: '今晚吃什么',
         description: '别纠结了，今晚吃什么交给命运转盘。',
+        lang: 'zh-CN',
         theme_color: '#fff6f4',
         background_color: '#fff6f4',
         display: 'standalone',
