@@ -54,4 +54,41 @@ describe('mobile decision flow', () => {
     expect(await screen.findByText('把这一票交给命运')).toBeTruthy();
     expect(screen.getByRole('button', { name: '转动命运' })).toBeTruthy();
   });
+
+  it('keeps a non-spicy light hotpot path linked through cuisine and final dish', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole('button', { name: /开始选吃的/ }));
+    await user.click(await screen.findByRole('button', { name: /吃顿好的/ }));
+    await user.click(await screen.findByRole('button', { name: /热的/ }));
+    await user.click(await screen.findByRole('button', { name: /清淡/ }));
+    await user.click(await screen.findByRole('button', { name: /完全不辣/ }));
+    await user.click(await screen.findByRole('button', { name: /火锅/ }));
+
+    expect(await screen.findByText('今晚想要哪种味道？')).toBeTruthy();
+    await user.click(screen.getByRole('button', { name: '清淡' }));
+    expect(await screen.findByText('接下来，选一个菜系')).toBeTruthy();
+    await user.click(screen.getByRole('button', { name: /潮汕风味/ }));
+
+    expect(await screen.findByText('今晚具体吃什么？')).toBeTruthy();
+    const finalDish = screen.getByRole('button', { name: /潮汕牛肉火锅/ });
+    expect(finalDish).toBeTruthy();
+    await user.click(finalDish);
+    expect(await screen.findByRole('heading', { name: '潮汕牛肉火锅' })).toBeTruthy();
+  });
+
+  it('removes impossible downstream forms instead of silently relaxing an upstream choice', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole('button', { name: /开始选吃的/ }));
+    await user.click(await screen.findByRole('button', { name: /正常吃饭/ }));
+    await user.click(await screen.findByRole('button', { name: /凉的/ }));
+    await user.click(await screen.findByRole('button', { name: /正常/ }));
+    await user.click(await screen.findByRole('button', { name: /辣不辣都可以/ }));
+
+    expect(await screen.findByText('更偏向哪一种形式？')).toBeTruthy();
+    expect(screen.queryByRole('button', { name: /火锅/ })).toBeNull();
+  });
 });
