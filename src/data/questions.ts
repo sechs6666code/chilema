@@ -33,6 +33,7 @@ export const questions: Question[] = [
     key: 'spicyPreference', eyebrow: '很关键的一票', title: '今天能接受辣吗？', hint: '这项属于硬条件，我不会偷偷背叛你。',
     options: [
       { value: 'any', label: '随便', emoji: '🎲' }, { value: 'none', label: '完全不辣', emoji: '🥛' },
+      { value: 'either', label: '辣不辣都可以', emoji: '👌' },
       { value: 'mild', label: '微辣', emoji: '🌶️' }, { value: 'medium', label: '中辣', emoji: '🌶️🌶️' },
       { value: 'very', label: '越辣越好', emoji: '🌋' }
     ]
