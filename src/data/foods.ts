@@ -14,55 +14,6 @@ type Seed = [
   deliveryFriendly: boolean
 ];
 
-const categoryPhotoPools: Record<string, string[]> = {
-  noodle: [
-    'photo-1569718212165-3a8278d5f624', 'photo-1555126634-323283e090fa', 'photo-1557872943-16a5ac26437e',
-    'photo-1559314809-0d155014e29e', 'photo-1563379926898-05f4575a45d8', 'photo-1473093295043-cdd812d0e601',
-    'photo-1547592180-85f173990554', 'photo-1515003197210-e0cd71810b5f', 'photo-1626804475297-41608ea09aeb'
-  ],
-  rice: [
-    'photo-1512058564366-18510be2db19', 'photo-1543353071-873f17a7a088', 'photo-1603133872878-684f208fb84b',
-    'photo-1536304993881-ff6e9eefa2a6', 'photo-1603105037880-880cd4edfb0d', 'photo-1515003197210-e0cd71810b5f',
-    'photo-1504674900247-0877df9cc836', 'photo-1569058242253-92a9c755a0ec', 'photo-1604908176997-125f25cc6f3d',
-    'photo-1544025162-d76694265947', 'photo-1561043433-aaf687c4cf04', 'photo-1585937421612-70a008356fbe'
-  ],
-  soup: [
-    'photo-1547592166-23ac45744acd', 'photo-1548943487-a2e4e43b4853', 'photo-1601050690117-94f5f6fa8bd7',
-    'photo-1547592180-85f173990554', 'photo-1582878826629-29b7ad1cdc43', 'photo-1603105037880-880cd4edfb0d',
-    'photo-1560963689-b5682b6440f8', 'photo-1603894584373-5ac82b2ae398', 'photo-1547592180-85f173990554'
-  ],
-  hotpot: [
-    'photo-1547592180-85f173990554', 'photo-1560963689-b5682b6440f8', 'photo-1603105037880-880cd4edfb0d',
-    'photo-1582878826629-29b7ad1cdc43', 'photo-1555126634-323283e090fa', 'photo-1515003197210-e0cd71810b5f'
-  ],
-  bbq: [
-    'photo-1544025162-d76694265947', 'photo-1541544741938-0af808871cc0', 'photo-1529193591184-b1d58069ecdd',
-    'photo-1499028344343-cd173ffc68a9', 'photo-1558030006-450675393462', 'photo-1529692236671-f1f6cf9683ba',
-    'photo-1600891964092-4316c288032e', 'photo-1528712306091-ed0763094c98'
-  ],
-  snack: [
-    'photo-1563245372-f21724e3856d', 'photo-1534422298391-e4f8c172dddb', 'photo-1606756790138-261d2b21cd75',
-    'photo-1562565652-a0d8f0c59eb4', 'photo-1551504734-5ee1c4a1479b', 'photo-1529042410759-befb1204b468',
-    'photo-1601050690597-df0568f70950', 'photo-1565299585323-38d6b0865b47', 'photo-1562967914-608f82629710'
-  ],
-  fast: [
-    'photo-1550547660-d9450f859349', 'photo-1568901346375-23c9450c58cd', 'photo-1586190848861-99aa4a171e90',
-    'photo-1571091718767-18b5b1457add', 'photo-1565299624946-b28f40a0ae38', 'photo-1565958011703-44f9829ba187',
-    'photo-1562967916-eb82221dfb92', 'photo-1626082927389-6cd097cdc6ec'
-  ],
-  cold: [
-    'photo-1512621776951-a57141f2eefd', 'photo-1540420773420-3366772f4999', 'photo-1543362906-acfc16c67564',
-    'photo-1540189549336-e6e99c3679fe', 'photo-1553621042-f6e147245754', 'photo-1579871494447-9811cf80d66c',
-    'photo-1551024506-0bccd828d307', 'photo-1563805042-7684c019e1cb'
-  ],
-  meal: [
-    'photo-1414235077428-338989a2e8c0', 'photo-1559339352-11d035aa65de', 'photo-1504674900247-0877df9cc836',
-    'photo-1533777857889-4be7c70b33f7', 'photo-1559847844-5315695dadae', 'photo-1546069901-ba9599a7e63c',
-    'photo-1526318896980-cf78c088247c', 'photo-1532636875304-0c89119d9b4d', 'photo-1600891964599-f61ba0e24092',
-    'photo-1565557623262-b51c2513a641', 'photo-1603894584373-5ac82b2ae398', 'photo-1585937421612-70a008356fbe'
-  ]
-};
-
 const seeds: Seed[] = [
   ['四川火锅', '川菜', ['hotpot', 'meal', 'dinner'], ['麻辣', '浓郁', '烟火味'], 4, 5, 'hot', 3, false, true, false],
   ['冒菜', '川菜', ['fast', 'meal', 'dinner'], ['麻辣', '咸香', '汤汤水水'], 3, 4, 'hot', 2, true, true, true],
@@ -478,26 +429,12 @@ const descriptions: Record<string, string> = {
   '汤汤水水': '一口热汤把疲惫接住，胃和心情一起被照顾。'
 };
 
-function getPhoto(category: string[], name: string, index: number) {
-  const group = category.includes('hotpot') ? 'hotpot'
-    : category.some((item) => ['noodle', 'rice-noodle'].includes(item)) ? 'noodle'
-      : category.includes('soup') ? 'soup'
-        : category.includes('bbq') ? 'bbq'
-          : category.some((item) => ['cold', 'light', 'dessert'].includes(item)) ? 'cold'
-            : category.includes('snack') ? 'snack'
-              : category.includes('fast') ? 'fast'
-                : category.includes('rice') ? 'rice' : 'meal';
-  const pool = categoryPhotoPools[group];
-  const nameHash = [...name].reduce((total, char) => total + (char.codePointAt(0) ?? 0), 0);
-  return pool[(nameHash + index) % pool.length];
-}
-
 export const foods: Food[] = allSeeds.map((seed, index) => {
   const [name, cuisine, category, flavor, spicyLevel, fullnessLevel, temperature, priceLevel, suitableForSolo, suitableForGroup, deliveryFriendly] = seed;
-  const photo = getPhoto(category, name, index);
+  const id = `dish-${String(index + 1).padStart(3, '0')}`;
   const lead = descriptions[flavor.find((item) => descriptions[item]) ?? ''] ?? '味道有层次、分量刚刚好，适合认真吃完这一顿。';
   return {
-    id: `dish-${String(index + 1).padStart(3, '0')}`,
+    id,
     name,
     cuisine,
     category,
@@ -510,7 +447,7 @@ export const foods: Food[] = allSeeds.map((seed, index) => {
     suitableForGroup,
     deliveryFriendly,
     description: `${lead} ${name}很适合今晚。`,
-    image: `https://images.unsplash.com/${photo}?auto=format&fit=crop&w=1200&q=82`
+    image: `${import.meta.env.BASE_URL}food-images/${id}.jpg`
   };
 });
 

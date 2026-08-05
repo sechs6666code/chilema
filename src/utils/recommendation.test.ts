@@ -23,8 +23,14 @@ describe('food database', () => {
     });
   });
 
-  it('uses a broad food-photo pool instead of one repeated image per cuisine', () => {
-    expect(new Set(foods.map((food) => food.image)).size).toBeGreaterThanOrEqual(55);
+  it('assigns one dedicated local photo to every dish', () => {
+    expect(new Set(foods.map((food) => food.image)).size).toBe(foods.length);
+    foods.forEach((food, index) => {
+      const expectedId = `dish-${String(index + 1).padStart(3, '0')}`;
+      expect(food.id).toBe(expectedId);
+      expect(food.image).toMatch(new RegExp(`/food-images/${expectedId}\\.jpg$`));
+    });
+
     const cuisinePhotoCounts = new Map<string, Set<string>>();
     foods.forEach((food) => {
       const photos = cuisinePhotoCounts.get(food.cuisine) ?? new Set<string>();

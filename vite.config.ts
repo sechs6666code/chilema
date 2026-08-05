@@ -27,18 +27,7 @@ export default defineConfig({
         ]
       },
       workbox: {
-        navigateFallback: '/chilema/index.html',
-        runtimeCaching: [
-          {
-            urlPattern: /^https:\/\/images\.unsplash\.com\//,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'food-images',
-              expiration: { maxEntries: 40, maxAgeSeconds: 60 * 60 * 24 * 14 },
-              cacheableResponse: { statuses: [0, 200] }
-            }
-          }
-        ]
+        navigateFallback: '/chilema/index.html'
       }
     })
   ],
