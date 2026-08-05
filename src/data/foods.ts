@@ -420,6 +420,7 @@ function expandSeed(seed: CompactSeed): Seed {
 }
 
 const allSeeds: Seed[] = [...seeds, ...extendedSeeds.map(expandSeed)];
+const imageVersion = '2026-08-05-visual-audit';
 
 const descriptions: Record<string, string> = {
   '清淡': '温和耐吃，让食材本味稳稳站在中央。',
@@ -447,7 +448,7 @@ export const foods: Food[] = allSeeds.map((seed, index) => {
     suitableForGroup,
     deliveryFriendly,
     description: `${lead} ${name}很适合今晚。`,
-    image: `${import.meta.env.BASE_URL}food-images/${id}.jpg`
+    image: `${import.meta.env.BASE_URL}food-images/${id}.jpg?v=${imageVersion}`
   };
 });
 

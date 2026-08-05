@@ -28,7 +28,7 @@ describe('food database', () => {
     foods.forEach((food, index) => {
       const expectedId = `dish-${String(index + 1).padStart(3, '0')}`;
       expect(food.id).toBe(expectedId);
-      expect(food.image).toMatch(new RegExp(`/food-images/${expectedId}\\.jpg$`));
+      expect(food.image).toMatch(new RegExp(`/food-images/${expectedId}\\.jpg\\?v=`));
     });
 
     const cuisinePhotoCounts = new Map<string, Set<string>>();
